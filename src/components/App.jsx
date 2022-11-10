@@ -8,21 +8,9 @@ const keyLocalStorage = 'contacts';
 
 export function App() {
   const [filter, setFilter] = useState('');
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem(keyLocalStorage)) ?? []);
 
-  useEffect(() => {
-    try {
-      const parsedContacts = JSON.parse(localStorage.getItem(keyLocalStorage));
-      console.log('Mount', parsedContacts);
-      if (parsedContacts) {
-        setContacts([...parsedContacts]);
-      }
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
-
-  useEffect(() => {
+  useEffect(() => {     
     localStorage.setItem(keyLocalStorage, JSON.stringify(contacts));
   }, [contacts]);
 
@@ -37,8 +25,8 @@ export function App() {
     return contacts.find(contact => contact.name === contactToFind);
   };
 
-  const handleDeleteItem = idToDelete => {
-    setContacts(state => state.filter(contact => contact.id !== idToDelete));
+  const handleDeleteItem = idToDelete => {    
+    setContacts(state => state.filter(contact => contact.id !== idToDelete));    
   };
 
   const handleSubmit = ({ name, mobile }) => {
@@ -70,13 +58,11 @@ export function App() {
               filter={filter}
               findInList={e => setFilter(e.target.value)}
             />
-            <br />
-            {contacts?.length > 0 && (
+            <br />            
               <ContactList
                 dataFiltered={filteredContacts}
                 onDelete={handleDeleteItem}
-              />
-            )}
+              />            
           </>
         )}
       </Section>
