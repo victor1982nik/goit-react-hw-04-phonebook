@@ -30,6 +30,10 @@ export function App() {
   };
 
   const handleSubmit = ({ name, mobile }) => {
+    if(!name || !mobile) {
+      window.alert(`Неправильный вводб поле не должно быть пустым`);
+      return;
+    }
     const newEl = {
       id: nanoid(),
       name: name,
