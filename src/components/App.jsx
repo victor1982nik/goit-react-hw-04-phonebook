@@ -8,10 +8,10 @@ const keyLocalStorage = 'contacts';
 
 export function App() {
   const [filter, setFilter] = useState('');
-  const [contacts, setContacts] = useState(JSON.parse(localStorage.getItem(keyLocalStorage)) ?? []);
+  const [contacts, setContacts] = useState(()=>JSON.parse(localStorage.getItem(keyLocalStorage)) ?? []);
 
   useEffect(() => {     
-    localStorage.setItem(keyLocalStorage, JSON.stringify(contacts));
+    localStorage.setItem(keyLocalStorage, JSON.stringify(contacts));    
   }, [contacts]);
 
   const filterContacts = () => {
