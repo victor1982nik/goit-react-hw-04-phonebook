@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import { nanoid } from 'nanoid';
 import { Button } from 'components/ContactForm/ContactForm.styled';
 import { List } from './ContactsList.styled';
 
@@ -7,7 +6,7 @@ export function ContactList({ dataFiltered, onDelete }) {
   return (
     <ul>
       {dataFiltered.map((contact, index) => (
-        <List key={nanoid()}>
+        <List key={contact.id}>
           {contact.name} {contact.number}{' '}
           <Button type="button" onClick={() => onDelete(contact.id)}>
             Delete
@@ -21,6 +20,7 @@ export function ContactList({ dataFiltered, onDelete }) {
 ContactList.propTypes = {
   dataFiltered: PropTypes.arrayOf(
     PropTypes.shape({
+      id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       number: PropTypes.string.isRequired,
     })

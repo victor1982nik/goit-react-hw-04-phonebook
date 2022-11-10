@@ -1,10 +1,9 @@
 import { nanoid } from 'nanoid';
-import { Component } from 'react';
+import { Component, useState } from 'react';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactsList/ContactsList';
 import { Filter } from './Filter/Filter';
 import { Section } from './Section/Section';
-
 const keyLocalStorage = 'contacts';
 
 export class App extends Component {
@@ -34,18 +33,17 @@ export class App extends Component {
     }
   }
 
-  handleSubmit = data => {
+  handleSubmit = ({ name, mobile }) => {
     const newEl = {
       id: nanoid(),
-      name: data.name,
-      number: data.number,
+      name: name,
+      number: mobile,
     };
-    if (this.findContact(data.name)) {
-      window.alert(`${data.name} is already in contacts`);
+    if (this.findContact(name)) {
+      window.alert(`${name} is already in contacts`);
       return;
     } else {
       this.setState(prevState => {
-        //  console.log({ contacts: [newEl, ...prevState.contacts] });
         return { contacts: [newEl, ...prevState.contacts] };
       });
     }
@@ -102,3 +100,4 @@ export class App extends Component {
     );
   }
 }
+//102 строки кода тспользуя класс
